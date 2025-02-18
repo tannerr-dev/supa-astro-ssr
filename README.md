@@ -7,7 +7,7 @@ I thought I would share mine.
 
 ---
 ## *Magic Link*
-edit the [Magic Link email template](https://supabase.com/docs/guides/auth/auth-email-passwordless;w) to send a token hash:
+edit the [Magic Link email template](https://supabase.com/docs/guides/auth/auth-email-passwordless) to send a token hash:
 ```
 <h2>Magic Link</h2>
 
