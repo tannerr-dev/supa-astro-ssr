@@ -57,12 +57,6 @@ const email = data.user?.email;
       <h1>Welcome</h1>
       <h2>{email}</h2>
       <p>We are happy to see you here</p>
-      <form action="/clock_in" method="post">
-        <button>Clock In</button>
-      </form>
-      <form action="/clock_out" method="post">
-        <button>Clock Out</button>
-      </form>
       <form action="/api/auth/signout">
         <button type="submit">Sign out</button>
       </form>
