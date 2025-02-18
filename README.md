@@ -7,6 +7,7 @@ I thought I would share mine.
 
 The `src/api/auth/confirm.ts` endpoint is for the magic link emails. (this was the hard part for me)
 
+---
 
 I'm still experimenting with this.
 Some things I'm not sure are required include:
