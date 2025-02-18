@@ -1,0 +1,23 @@
+---
+import Layout from "../layout/Layout.astro"
+const title = "Clock-In App"
+---
+<Layout title={title} >
+	<div class="v-container">
+		<h1 id="app">App</h1>
+		<a href="/register">Register</a>
+		<a href="/signin">Sign In</a>
+		<!-- <a href="/signout">Sign Out</a> -->
+	</div>
+</Layout>
+<style>
+	h1{
+		padding-bottom: 0px;
+	}
+	#app{
+		padding-bottom: 72px;
+	}
+	a{
+		font-size: 48px;
+	}
+</style>

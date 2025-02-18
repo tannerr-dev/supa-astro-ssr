@@ -1,0 +1,42 @@
+---
+import Layout from "../layout/Layout.astro"
+---
+
+<Layout title="Register">
+  <div  class="v-container">
+    <h1>Register</h1>
+    <p>Already have an account?</p>
+    <a href="/signin">Sign in</a>
+    <form action="/api/auth/register" method="post">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" />
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" />
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</Layout>
+<style>
+  h1{
+    padding-bottom: 24px;
+  }
+  a{
+    padding-bottom: 72px;
+  }
+  form{
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+  }
+  label, input, button{
+    margin:8px;
+    height:32px;
+  }
+  button{
+    margin-top: 18px;
+    height:48px;
+    font-size: inherit;
+    font-family: inherit;
+    color: rgb(72, 72, 72);
+  }
+</style>

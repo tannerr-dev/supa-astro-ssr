@@ -1,0 +1,83 @@
+---
+import Layout from "../layout/Layout.astro";
+import { createServerClient, parseCookieHeader } from "@supabase/ssr";
+
+const supabase = createServerClient(
+  import.meta.env.SUPABASE_URL,
+  import.meta.env.SUPABASE_ANON_KEY,
+  {
+    auth: {
+      detectSessionInUrl: true,
+      flowType: 'pkce',
+    },
+    cookies: {
+      getAll() {
+        return parseCookieHeader(Astro.request.headers.get('Cookie') ?? '')
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value, options }) =>
+          Astro.cookies.set(name, value, options))
+      },
+    },
+  }
+);
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get(`sb-access-token`);
+const refreshToken = cookies.get("sb-refresh-token");
+
+if (!accessToken || !refreshToken) {
+  console.log("no access or refresh token")
+  return redirect("/signin");
+}
+
+const { data, error } = await supabase.auth.setSession({
+  refresh_token: refreshToken.value,
+  access_token: accessToken.value,
+});
+
+if (error) {
+  cookies.delete("sb-access-token", {
+    path: "/",
+  });
+  cookies.delete("sb-refresh-token", {
+    path: "/",
+  });
+
+  return redirect("/signin");
+}
+const email = data.user?.email;
+ 
+// const email = Astro.locals.data.user?.email;
+---
+
+<Layout title="dashboard">
+    <div  class="v-container">
+      <h1>Welcome</h1>
+      <h2>{email}</h2>
+      <p>We are happy to see you here</p>
+      <form action="/clock_in" method="post">
+        <button>Clock In</button>
+      </form>
+      <form action="/clock_out" method="post">
+        <button>Clock Out</button>
+      </form>
+      <form action="/api/auth/signout">
+        <button type="submit">Sign out</button>
+      </form>
+    </p>
+</Layout>
+<style>
+  h2{
+    font-size: 32px;
+    padding-bottom: 24px;
+  }
+  button{
+    margin-top: 18px;
+    height:48px;
+    font-size: inherit;
+    font-family: inherit;
+    color: rgb(72, 72, 72);
+  }
+</style>
